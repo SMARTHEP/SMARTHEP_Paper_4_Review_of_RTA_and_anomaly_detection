@@ -684,7 +684,36 @@ FUNCTION {format.incoll.inproc.crossref}
   " \cite{" * crossref * "}" *
 }
 
+\begin{comment}
 FUNCTION {article}
+{ output.bibitem
+  format.collaboration output
+  format.authors "author" output.check
+  format.editors "editors" output.check
+  format.title "title" output.check
+  blank.sep
+  crossref missing
+    { format.eprint output }
+    { journal empty { format.number output }
+        		  'skip
+      blank.sep
+      format.pages.nopp output }
+      if
+      }
+    if
+            { journal empty }
+            {blank.sep format.report output format.eprint.paren output}
+            if
+    }
+    { format.article.crossref output.nonnull
+      format.pages output
+      format.eprint.paren output
+    }
+  if
+}
+\end{comment}
+
+ FUNCTION {article}
 { output.bibitem
   format.collaboration output
   format.authors "author" output.check
@@ -721,6 +750,7 @@ FUNCTION {article}
   note output
   fin.entry
 }
+
 
 FUNCTION {book}
 { output.bibitem
